@@ -22,6 +22,22 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    login: async (parent, args) => {
+      const user = await User.findOne({
+        email: args.email,
+      });
+      if (!user) {
+        throw new AuthenticationError('Could not Find user');
+      }
+
+      const correctPw = await user.isCorrectPassword(args.password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect Password');
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
   },
 };
 
