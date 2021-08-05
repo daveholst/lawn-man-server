@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://unraid.local/lawn-man', {
+mongoose.connect(process.env.MONGO_URL || 'mongodb://unraid.local/lawn-man', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
