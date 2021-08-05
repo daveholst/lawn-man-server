@@ -23,6 +23,7 @@ const resolvers = {
       return { token, user };
     },
     login: async (parent, args) => {
+      console.log('login mutation fired');
       const user = await User.findOne({
         email: args.email,
       });
