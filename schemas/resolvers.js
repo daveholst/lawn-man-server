@@ -31,7 +31,8 @@ const resolvers = {
       if (!user) {
         throw new AuthenticationError('Could not add property to user');
       }
-      return user;
+      const token = signToken(user);
+      return { token, user };
     },
 
     login: async (_parent, args) => {

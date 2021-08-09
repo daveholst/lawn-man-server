@@ -44,7 +44,7 @@ const typeDefs = gql`
       openSprinklerAddress: String
       openSprinklerKey: String
       climate: String
-    ): User
+    ): Auth
   }
 `;
 
