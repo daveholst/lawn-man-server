@@ -7,6 +7,17 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     password: String!
+    properties: [Property]
+  }
+
+  type Property {
+    _id: ID
+    propertyName: String
+    address: String
+    juiceBoxId: String
+    openSprinklerAddress: String
+    openSprinklerKey: String
+    climate: String
   }
 
   type Auth {
@@ -26,6 +37,14 @@ const typeDefs = gql`
       password: String!
     ): Auth
     login(email: String!, password: String!): Auth
+    addProperty(
+      propertyName: String
+      address: String
+      juiceBoxId: String
+      openSprinklerAddress: String
+      openSprinklerKey: String
+      climate: String
+    ): Auth
   }
 `;
 

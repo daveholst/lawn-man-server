@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const propertySchema = require('./Property');
 
-// import schema from Book.js
 const userSchema = new Schema(
   {
     firstName: {
@@ -24,6 +24,7 @@ const userSchema = new Schema(
       required: true,
       // TODO: ADD MIN LENGTH AFTER TESTING!
     },
+    properties: [propertySchema],
   },
   // set this to use virtual below
   {

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Lawn Management Software Backend",
   "main": "index.js",
-  "enginse": {
+  "engines": {
     "node": "16.x"
   },
   "scripts": {
