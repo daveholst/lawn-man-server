@@ -22,7 +22,19 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    login: async (parent, args) => {
+    addProperty: async (_parent, args, context) => {
+      const user = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { properties: args } },
+        { new: true, runValidators: true }
+      );
+      if (!user) {
+        throw new AuthenticationError('Could not add property to user');
+      }
+      return user;
+    },
+
+    login: async (_parent, args) => {
       console.log('login mutation fired');
       const user = await User.findOne({
         email: args.email,
