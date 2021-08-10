@@ -18,6 +18,14 @@ const typeDefs = gql`
     openSprinklerAddress: String
     openSprinklerKey: String
     climate: String
+    zones: [Zone]
+  }
+
+  type Zone {
+    stationNumber: Number!
+    stationName: String!
+    type: String!
+    area: String!
   }
 
   type Auth {
@@ -44,6 +52,12 @@ const typeDefs = gql`
       openSprinklerAddress: String
       openSprinklerKey: String
       climate: String
+    ): Auth
+    addZone(
+      stationNumber: Number!
+      stationName: String!
+      type: String
+      area: String
     ): Auth
   }
 `;

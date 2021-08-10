@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const zoneSchema = require('./Zone');
 
 const propertySchema = new Schema({
   propertyName: {
@@ -25,6 +26,7 @@ const propertySchema = new Schema({
     type: String,
     required: true,
   },
+  zones: [zoneSchema],
 });
 
 module.exports = propertySchema;

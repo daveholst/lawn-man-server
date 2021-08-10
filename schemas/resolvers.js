@@ -34,6 +34,18 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    addZones: async (_parent, args, context) => {
+      const user = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { zones: args } },
+        { new: true, runValidators: true }
+      );
+      if (!user) {
+        throw new AuthenticationError('Could not add property to user');
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
 
     login: async (_parent, args) => {
       console.log('login mutation fired');
