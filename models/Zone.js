@@ -1,11 +1,11 @@
 const { Schema } = require('mongoose');
 
 const zoneSchema = new Schema({
-  number: {
-    type: String,
+  stationNumber: {
+    type: Number,
     required: true,
   },
-  name: {
+  stationName: {
     type: String,
     required: true,
   },
