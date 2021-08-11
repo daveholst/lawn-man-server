@@ -11,11 +11,11 @@ const zoneSchema = new Schema({
   },
   type: {
     type: String,
-    required: true,
+    required: false,
   },
   area: {
     type: Number,
-    required: true,
+    required: false,
   },
 });
 

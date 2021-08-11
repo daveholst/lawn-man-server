@@ -22,10 +22,17 @@ const typeDefs = gql`
   }
 
   type Zone {
+    _id: ID
     stationNumber: String!
     stationName: String!
-    type: String!
-    area: String!
+    type: String
+    area: String
+  }
+  input CreateZonePayload {
+    stationNumber: String!
+    stationName: String!
+    type: String
+    area: String
   }
 
   type Auth {
@@ -53,12 +60,13 @@ const typeDefs = gql`
       openSprinklerKey: String
       climate: String
     ): Auth
-    addZones(
-      stationNumber: String!
-      stationName: String!
-      type: String
-      area: String
-    ): Auth
+    addZones(propertyName: String!, input: [CreateZonePayload]): Auth
+    # addZones(
+    #   stationNumber: String!
+    #   stationName: String!
+    #   type: String
+    #   area: String
+    # ): Auth
   }
 `;
 

@@ -35,15 +35,25 @@ const resolvers = {
       return { token, user };
     },
     addZones: async (_parent, args, context) => {
+      console.log('addZones args: ', args);
       const user = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $addToSet: { zones: args } },
-        { new: true, runValidators: true }
+        {
+          $and: [
+            { _id: context.user._id },
+            { 'properties.propertyName': args.propertyName },
+          ],
+        },
+        { $addToSet: { 'properties.$.zones': { $each: args.input } } },
+        { new: true, runValidators: true },
+        function (err, managerparent) {
+          if (err) throw err;
+          console.log(managerparent);
+        }
       );
       if (!user) {
         throw new AuthenticationError('Could not add property to user');
       }
-      const token = signToken(user);
+      console.log(user);
       return { token, user };
     },
 
