@@ -35,7 +35,7 @@ const resolvers = {
       return { token, user };
     },
     addZones: async (_parent, args, context) => {
-      console.log('addZones args: ', args);
+      // console.log('addZones args: ', args);
       const user = await User.findOneAndUpdate(
         {
           $and: [
@@ -51,6 +51,23 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },
+    editZone: async (_parent, args, context) => {
+      console.log('editZones args: ', args);
+      const zone = await User.findOneAndUpdate(
+        {
+          $and: [
+            { _id: context.user._id },
+            { 'properties.zones._id': args.ZoneId },
+          ],
+        },
+        { ...args.input },
+        { new: true, runValidators: true }
+      );
+      if (!zone) {
+        throw new AuthenticationError('Could not update zone');
+      }
+      return { zone };
     },
 
     login: async (_parent, args) => {
