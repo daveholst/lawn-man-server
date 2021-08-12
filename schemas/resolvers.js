@@ -53,16 +53,17 @@ const resolvers = {
       return { token, user };
     },
     editZone: async (_parent, args, context) => {
-      // console.log('editZones args: ', args);
       const user = await User.findOneAndUpdate(
         {
-          $and: [
-            { _id: context.user._id },
-            { 'properties.propertyName': args.propertyName },
-          ],
+          _id: context.user._id,
         },
-        { $set: { 'properties.$.zones': args.input } },
-        { new: true, runValidators: true }
+        { $set: { 'properties.$[e1].zones.$[e2]': args.input } },
+        {
+          arrayFilters: [
+            { 'e1.propertyName': args.propertyName },
+            { 'e2._id': args.zoneId },
+          ],
+        }
       );
       if (!user) {
         throw new AuthenticationError('Could not update zone');
@@ -72,23 +73,7 @@ const resolvers = {
       return { token, user };
     },
 
-    login: async (_parent, args) => {
-      console.log('login mutation fired');
-      const user = await User.findOne({
-        email: args.email,
-      });
-      if (!user) {
-        throw new AuthenticationError('Could not Find user');
-      }
-
-      const correctPw = await user.isCorrectPassword(args.password);
-
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect Password');
-      }
-      const token = signToken(user);
-      return { token, user };
-    },
+    login: async (_parent, args) => {},
   },
 };
 
