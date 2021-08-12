@@ -61,7 +61,11 @@ const typeDefs = gql`
       climate: String
     ): Auth
     addZones(propertyName: String!, input: [CreateZonePayload]): Auth
-    editZone(ZoneId: ID!, input: [CreateZonePayload]): Zone
+    editZone(
+      zoneId: String!
+      propertyName: String!
+      input: [CreateZonePayload]
+    ): Auth
   }
 `;
 

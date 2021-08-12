@@ -14,7 +14,7 @@ const zoneSchema = new Schema({
     required: false,
   },
   area: {
-    type: Number,
+    type: String,
     required: false,
   },
 });
