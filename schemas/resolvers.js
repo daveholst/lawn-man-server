@@ -44,16 +44,12 @@ const resolvers = {
           ],
         },
         { $addToSet: { 'properties.$.zones': { $each: args.input } } },
-        { new: true, runValidators: true },
-        function (err, managerparent) {
-          if (err) throw err;
-          console.log(managerparent);
-        }
+        { new: true, runValidators: true }
       );
       if (!user) {
         throw new AuthenticationError('Could not add property to user');
       }
-      console.log(user);
+      const token = signToken(user);
       return { token, user };
     },
 
