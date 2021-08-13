@@ -28,11 +28,34 @@ const typeDefs = gql`
     type: String
     area: String
   }
+
   input CreateZonePayload {
     stationNumber: String!
     stationName: String!
     type: String
     area: String
+  }
+
+  type Fertiliser {
+    _id: ID
+    productBrand: String
+    productName: String
+    type: String
+    description: String
+    applicationRate: String
+    manufacturerLink: String
+    bunningsLink: String
+    imageLink: String
+  }
+  input CreateFertiliserPayload {
+    productBrand: String!
+    productName: String!
+    type: String
+    description: String
+    applicationRate: String
+    manufacturerLink: String
+    bunningsLink: String
+    imageLink: String
   }
 
   type Auth {
@@ -42,6 +65,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    fertilisers: [Fertiliser]
   }
 
   type Mutation {
@@ -66,6 +90,7 @@ const typeDefs = gql`
       propertyName: String!
       input: [CreateZonePayload]
     ): Auth
+    addFertiliser(input: CreateFertiliserPayload): Fertiliser
   }
 `;
 

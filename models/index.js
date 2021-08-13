@@ -1,3 +1,4 @@
 const User = require('./User');
+const Fertiliser = require('./Fertiliser');
 
-module.exports = { User };
+module.exports = { User, Fertiliser };
