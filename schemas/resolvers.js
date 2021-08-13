@@ -72,7 +72,6 @@ const resolvers = {
 
       return { token, user };
     },
-
     login: async (_parent, args) => {},
   },
 };

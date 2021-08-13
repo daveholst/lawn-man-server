@@ -25,14 +25,14 @@ const userSchema = new Schema(
       // TODO: ADD MIN LENGTH AFTER TESTING!
     },
     properties: [propertySchema],
-  },
-  // set this to use virtual below
-  {
-    // ! changed this to toObject as we were no longer using the toJSON method to call the hook.
-    toObject: {
-      virtuals: true,
-    },
   }
+  // // set this to use virtual below
+  // {
+  //   // ! changed this to toObject as we were no longer using the toJSON method to call the hook.
+  //   toObject: {
+  //     virtuals: true,
+  //   },
+  // }
 );
 
 // hash user password
