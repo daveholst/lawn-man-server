@@ -12,6 +12,13 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    fertilisers: async () => {
+      const result = await Fertiliser.find({});
+      if (!result) {
+        throw new AuthenticationError('You need to be logged in!');
+      }
+      return result;
+    },
   },
   Mutation: {
     addUser: async (_parent, args) => {
