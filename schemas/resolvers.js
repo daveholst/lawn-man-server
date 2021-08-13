@@ -88,7 +88,21 @@ const resolvers = {
 
       return { token, user };
     },
-    login: async (_parent, args) => {},
+    login: async (_parent, args) => {
+      console.log('login mutation fired');
+      const user = await User.findOne({
+        email: args.email,
+      });
+      if (!user) {
+        throw new AuthenticationError('Could not Find user');
+      }
+      const correctPw = await user.isCorrectPassword(args.password);
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect Password');
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
   },
 };
 
