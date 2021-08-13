@@ -1,6 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
-const Fertiliser = require('../models/Fertiliser');
+const { User, Fertiliser } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -54,11 +53,13 @@ const resolvers = {
       return { token, user };
     },
     addFertiliser: async (_parent, args) => {
-      const fertiliser = await Fertiliser.create(args);
+      console.log('args: ', args);
+      const fertiliser = await Fertiliser.create(args.input);
+      console.log('fert: ', fertiliser);
       if (!fertiliser) {
         throw new AuthenticationError('Could not create user');
       }
-      return { fertiliser };
+      return fertiliser;
     },
     editZone: async (_parent, args, context) => {
       const user = await User.findOneAndUpdate(

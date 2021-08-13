@@ -38,8 +38,8 @@ const typeDefs = gql`
 
   type Fertiliser {
     _id: ID
-    productBrand: String!
-    productName: String!
+    productBrand: String
+    productName: String
     type: String
     description: String
     applicationRate: String
@@ -89,7 +89,7 @@ const typeDefs = gql`
       propertyName: String!
       input: [CreateZonePayload]
     ): Auth
-    addFertiliser(input: [CreateFertiliserPayload]): Fertiliser
+    addFertiliser(input: CreateFertiliserPayload): Fertiliser
   }
 `;
 
