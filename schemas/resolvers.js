@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Fertiliser } = require('../models');
 const { signToken } = require('../utils/auth');
+const runManualProgram = require('../utils/runManualProg');
 
 const resolvers = {
   Query: {
@@ -88,6 +89,28 @@ const resolvers = {
 
       return { token, user };
     },
+    runManProg: async (_parent, args, context) => {
+      const { propertyId, fertRuntime, stationNumber } = args;
+      if (context.user) {
+        const userResult = await User.findOne({ _id: context.user._id });
+        // console.log(userResult);
+        console.log(args);
+        // get the property info
+        const property = userResult.properties.find(
+          (el) => el.id === propertyId
+        );
+
+        // send it to the run manual programe
+        runManualProgram({
+          property,
+          stationNumber,
+          fertRuntime,
+        });
+        return { message: 'this is a test...' };
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
     login: async (_parent, args) => {
       console.log('login mutation fired');
       const user = await User.findOne({

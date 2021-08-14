@@ -58,9 +58,19 @@ const typeDefs = gql`
     imageLink: String
   }
 
+  input RunManualPayload {
+    propertyId: String!
+    stationNumber: String!
+    fertRunTime: String!
+  }
+
   type Auth {
     token: ID!
     user: User
+  }
+
+  type Msg {
+    message: String!
   }
 
   type Query {
@@ -91,6 +101,11 @@ const typeDefs = gql`
       input: [CreateZonePayload]
     ): Auth
     addFertiliser(input: CreateFertiliserPayload): Fertiliser
+    runManProg(
+      propertyId: String!
+      stationNumber: String!
+      fertRuntime: String!
+    ): Msg
   }
 `;
 
