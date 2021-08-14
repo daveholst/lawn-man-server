@@ -8,6 +8,7 @@ const axios = require('axios').default;
 const mqtt = require('mqtt');
 
 const runManualProgram = (args) => {
+  console.log('in RMP', args);
   // change master valve to juicebox
   // setup mqtt client
   const mqttClient = mqtt.connect(
@@ -29,10 +30,11 @@ const runManualProgram = (args) => {
   // switch the valve to juicebox
   mqttClient.publish(`${args.juiceBoxId}/relay1`, 'on');
 
-  // delay execution will programe is running
-  setTimeout(() => {}, args.fertRuntime * 1000);
+  // set turn off after set time.
+  setTimeout(() => {
+    mqttClient.publish(`${args.juiceBoxId}/relay1`, 'off');
+  }, args.fertRuntime * 1000);
   // switch the valve back
-  mqttClient.publish(`${args.juiceBoxId}/relay1`, 'off');
 };
 
 module.exports = runManualProgram;
