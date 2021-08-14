@@ -34,3 +34,5 @@ const runManualProgram = (args) => {
   // switch the valve back
   mqttClient.publish(`${args.juiceBoxId}/relay1`, 'off');
 };
+
+module.exports = runManualProgram;

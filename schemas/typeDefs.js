@@ -58,6 +58,11 @@ const typeDefs = gql`
     imageLink: String
   }
 
+  input RunManualPayload {
+    propertyId: String!
+    fertRunTime: String!
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -91,6 +96,7 @@ const typeDefs = gql`
       input: [CreateZonePayload]
     ): Auth
     addFertiliser(input: CreateFertiliserPayload): Fertiliser
+    runManProg(input: RunManualPayload!): String
   }
 `;
 

@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Fertiliser } = require('../models');
 const { signToken } = require('../utils/auth');
+const runManualProgram = require('../utils/runManualProg');
 
 const resolvers = {
   Query: {
@@ -88,6 +89,10 @@ const resolvers = {
 
       return { token, user };
     },
+    runManProg: async (_parent, args, context) => {
+      runManualProgram(args.input);
+    },
+
     login: async (_parent, args) => {
       console.log('login mutation fired');
       const user = await User.findOne({
