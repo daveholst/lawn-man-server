@@ -90,7 +90,11 @@ const resolvers = {
       return { token, user };
     },
     runManProg: async (_parent, args, context) => {
-      runManualProgram(args.input);
+      console.log(args);
+      // get the property info
+      // send it to the run manual programe
+      // runManualProgram(args.input);
+      return { message: 'this is a test...' };
     },
 
     login: async (_parent, args) => {
