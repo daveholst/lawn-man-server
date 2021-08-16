@@ -10,6 +10,7 @@ const stationConverter = (stnCount, stationNum, time) => {
   // build array
   const runArray = new Array(stnCount).fill(0);
   runArray.fill(Number(time), Number(stationNum) - 1, Number(stationNum));
+  console.log(runArray);
   return runArray;
 };
 
@@ -54,7 +55,7 @@ const runManualProgram = async ({ property, stationNumber, fertRuntime }) => {
   // switch the valve back
   setTimeout(() => {
     mqttClient.publish(`${property.juiceBoxId}/relay1`, 'off');
-  }, (fertRuntime - 360) * 1000);
+  }, (Number(fertRuntime) - 360) * 1000);
 };
 
 module.exports = runManualProgram;
