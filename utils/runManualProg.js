@@ -1,4 +1,3 @@
-// TODO
 // 20mins total, 14m fertigation, 6min flush
 // juiceBox -> Change delivery valve to juiceBox
 // openSprinkler -> start watering
@@ -15,11 +14,6 @@ const stationConverter = (stnCount, stationNum, time) => {
 };
 
 const runManualProgram = async ({ property, stationNumber, fertRuntime }) => {
-  // console.log('in RMP', property.zones.length);
-  // console.log(
-  //   stationConverter(property.zones.length, stationNumber, fertRuntime)
-  // );
-
   // change master valve to juicebox
   // setup mqtt client
   const mqttClient = mqtt.connect(
@@ -57,10 +51,10 @@ const runManualProgram = async ({ property, stationNumber, fertRuntime }) => {
     console.error(error);
   }
   // set turn off after set time.
+  // switch the valve back
   setTimeout(() => {
     mqttClient.publish(`${property.juiceBoxId}/relay1`, 'off');
-  }, fertRuntime * 1000);
-  // switch the valve back
+  }, (fertRuntime - 360) * 1000);
 };
 
 module.exports = runManualProgram;
